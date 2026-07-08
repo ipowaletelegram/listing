@@ -1,0 +1,124 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BE.IPOWale Instant News Generator</title>
+<style>
+body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#222}
+.container{max-width:1100px;margin:30px auto;padding:20px}
+.card{background:#fff;border-radius:16px;padding:20px;box-shadow:0 8px 24px rgba(0,0,0,.08)}
+h1{margin-top:0;color:#0b57d0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:15px}
+label{font-weight:bold;font-size:14px}
+input,select{width:100%;padding:10px;margin-top:6px;border:1px solid #ccc;border-radius:8px;box-sizing:border-box}
+button{padding:12px 18px;border:none;border-radius:8px;background:#0b57d0;color:#fff;font-weight:bold;cursor:pointer}
+button:hover{background:#0847ab}
+.out{margin-top:20px}
+textarea{width:100%;height:180px;padding:10px;border-radius:8px;border:1px solid #ccc;box-sizing:border-box}
+.copy{margin-top:8px;background:#16a34a}
+.small{font-size:13px;color:#666}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="card">
+<h1>🚀 BE.IPOWale Instant News Generator</h1>
+<p class="small">Generate Telegram message, Instagram caption and ChatGPT image prompt in one click.</p>
+
+<div class="grid">
+<div><label>News Type</label>
+<select id="type">
+<option>Listing</option>
+<option>GMP Update</option>
+<option>Allotment</option>
+<option>Subscription</option>
+<option>DRHP</option>
+<option>SEBI Approval</option>
+</select></div>
+
+<div><label>Company Name</label><input id="company"></div>
+<div><label>Issue Price (₹)</label><input id="issue" type="number"></div>
+<div><label>Listing Price (₹)</label><input id="listing" type="number"></div>
+<div><label>GMP (₹)</label><input id="gmp" type="number"></div>
+<div><label>Lot Size</label><input id="lot" type="number"></div>
+</div>
+
+<br>
+<button onclick="generate()">Generate</button>
+
+<div class="out">
+<h2>📢 Telegram</h2>
+<textarea id="telegram"></textarea><br>
+<button class="copy" onclick="copyText('telegram')">Copy</button>
+
+<h2>📸 Instagram Caption</h2>
+<textarea id="instagram"></textarea><br>
+<button class="copy" onclick="copyText('instagram')">Copy</button>
+
+
+<script>
+function generate(){
+let type=document.getElementById('type').value;
+let company=document.getElementById('company').value;
+let issue=parseFloat(document.getElementById('issue').value)||0;
+let listing=parseFloat(document.getElementById('listing').value)||0;
+let gmp=parseFloat(document.getElementById('gmp').value)||0;
+let lot=parseFloat(document.getElementById('lot').value)||0;
+
+let gain=issue?(((listing-issue)/issue)*100):0;
+let profit=(listing-issue)*lot;
+
+let tg=`🚨 ${type.toUpperCase()} UPDATE
+
+${company}
+
+Issue Price : ₹${issue}
+Listing Price : ₹${listing}
+Listing Gain : ${gain.toFixed(2)}%
+Profit / Lot : ₹${profit.toFixed(0)}
+
+Follow @be.ipowale for fastest Mainboard IPO updates.`;
+
+let ig=`🚨 ${company} ${type}
+
+✅ Issue Price : ₹${issue}
+✅ Listing Price : ₹${listing}
+📈 Listing Gain : ${gain.toFixed(2)}%
+💰 Profit/Lot : ₹${profit.toFixed(0)}
+
+Follow @be.ipowale
+
+#ipo #stockmarket #mainboard #doubletap #likesharecomment`;
+
+let pr=`Create a premium 1080x1080 Instagram post in luxury white fintech theme for BE.IPOWale.
+
+Company: ${company}
+News Type: ${type}
+Issue Price: ₹${issue}
+Listing Price: ₹${listing}
+GMP: ₹${gmp}
+Listing Gain: ${gain.toFixed(2)}%
+Lot Size: ${lot}
+Profit per Lot: ₹${profit.toFixed(0)}
+
+Use glassmorphism cards, premium gold accents, blue glow, clean spacing, bold typography and leave top-left space for BE.IPOWale logo.`;
+
+document.getElementById("telegram").value=tg;
+document.getElementById("instagram").value=ig;
+document.getElementById("prompt").value=pr;
+}
+
+function copyText(id){
+let t=document.getElementById(id);
+t.select();
+document.execCommand("copy");
+alert("Copied!");
+}
+</script>
+<a href="gptprompt.html" class="btn">
+    🤖 GPT Prompt Generator
+</a>
+</body>
+</html>

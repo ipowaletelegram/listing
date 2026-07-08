@@ -1,0 +1,158 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BE.IPOWale Listing AI Prompt Generator</title>
+<style>
+body{margin:0;font-family:Segoe UI,Arial;background:#eef3f9}
+.wrap{max-width:1100px;margin:30px auto;background:#fff;border-radius:16px;padding:24px;box-shadow:0 10px 30px rgba(0,0,0,.08)}
+h1{margin:0;color:#123}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:18px}
+input{width:100%;padding:10px;border:1px solid #ccc;border-radius:8px}
+label{font-weight:600}
+button{margin-top:18px;background:#0b63ff;color:#fff;border:0;padding:12px 18px;border-radius:10px;cursor:pointer}
+textarea{margin-top:20px;width:100%;height:650px;border-radius:10px;padding:14px}
+@media(max-width:700px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>BE.IPOWale – Listing Image Prompt Generator</h1>
+<p>Fill only the listing details. Instagram, Telegram and branding instructions are included automatically.</p>
+
+<div class="grid">
+<div><label>Company Name</label><input id="c"></div>
+<div><label>Issue Price (₹)</label><input id="i" type="number"></div>
+<div><label>Listing Price (₹)</label><input id="l" type="number"></div>
+<div><label>Lot Size</label><input id="lot" type="number"></div>
+</div>
+
+<button onclick="gen()">Generate Complete Prompt</button>
+
+<button onclick="copyPrompt()" id="copyBtn" style="margin-left:10px;background:#16a34a;">
+    📋 Copy Prompt
+</button>
+
+<textarea id="out"></textarea>
+
+</div>
+
+<script>
+function fmt(x){return new Intl.NumberFormat('en-IN',{maximumFractionDigits:2}).format(x);}
+function gen(){
+let c=document.getElementById('c').value.trim();
+let i=+document.getElementById('i').value;
+let l=+document.getElementById('l').value;
+let lot=+document.getElementById('lot').value;
+if(!c||!i||!l||!lot){alert("Fill all fields.");return;}
+let gps=l-i;
+let gain=((gps/i)*100).toFixed(2);
+let ppl=fmt(gps*lot);
+
+document.getElementById('out').value=`**Premium AI Image Generation Prompt (Light Theme – BE.IPOWale)**
+
+Create a premium 1080×1080 square Instagram post in a modern luxury fintech style inspired by high-end investment brands.
+
+Use a luxury white theme with pearl gradients, premium gold accents, glassmorphism cards, sapphire blue glow, emerald stock highlights, Apple-inspired minimalism, Bloomberg-style fintech aesthetics, cinematic lighting and ultra HD quality.
+
+### Branding (Top Left)
+Use the uploaded original BE.IPOWale logo exactly as provided.
+Do NOT recreate, recolor or redesign it.
+
+Below/next to the logo:
+BE.IPOWale
+DAILY IPO UPDATES
+
+### Top Right Badge
+IPO UPDATE
+
+### Company
+${c}
+
+### Heading
+LISTED TODAY
+
+### Center Highlight Card
+PROFIT PER LOT
+₹${ppl}
+
+### Bottom Cards
+Issue Price : ₹${fmt(i)}
+Listing Price : ₹${fmt(l)}
+Gain Per Share : ₹${fmt(gps)}
+Listing Gain : ${gain}%
+Lot Size : ${lot} Shares
+
+### Bottom Banner
+Congratulations to all the allotted investors!
+
+### Follow Card
+Follow BE.IPOWale For
+
+• IPO Updates
+• GMP Updates
+• Allotment Status
+• Listing Gain
+• Upcoming IPOs
+
+Instagram : @be.ipowale
+Telegram : @be_ipowale
+
+### Footer
+Stay Informed, Stay Ahead!
+Follow Us @BE.IPOWale
+
+### Disclaimer
+Investments in securities market are subject to market risks. Read all related documents carefully before investing.
+
+### Financial Graphics
+• 3D Golden Bull
+• NSE/BSE inspired building
+• Rising green candlestick chart
+• Premium dashboard
+• Blue holographic indicators
+• Luxury investment graphics
+
+### Automatic Financial Calculations
+Gain Per Share = Listing Price − Issue Price
+Listing Gain (%) = ((Listing Price − Issue Price) ÷ Issue Price) × 100
+Profit Per Lot = Gain Per Share × Lot Size
+
+Ensure:
+• No spelling mistakes
+• No watermark
+• Perfect alignment
+• Photorealistic
+• Premium luxury branding
+• Instagram Ready`;
+}
+function copyPrompt() {
+    const textarea = document.getElementById("out");
+
+    if (textarea.value.trim() === "") {
+        alert("Please generate the prompt first.");
+        return;
+    }
+
+    navigator.clipboard.writeText(textarea.value)
+        .then(() => {
+            const btn = document.getElementById("copyBtn");
+            btn.innerHTML = "✅ Copied!";
+            btn.style.background = "#15803d";
+
+            setTimeout(() => {
+                btn.innerHTML = "📋 Copy Prompt";
+                btn.style.background = "#16a34a";
+            }, 2000);
+        })
+        .catch(() => {
+            textarea.select();
+            document.execCommand("copy");
+            alert("Prompt copied successfully!");
+        });
+}
+</script>
+</body>
+</html>
