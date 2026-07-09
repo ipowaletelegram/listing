@@ -67,30 +67,57 @@ let listing=parseFloat(document.getElementById('listing').value)||0;
 let gmp=parseFloat(document.getElementById('gmp').value)||0;
 let lot=parseFloat(document.getElementById('lot').value)||0;
 
-let gain=issue?(((listing-issue)/issue)*100):0;
-let profit=(listing-issue)*lot;
+let gainPerShare = listing - issue;
 
-let tg=`🚨 ${type.toUpperCase()} UPDATE
+let tg = `🚀 ${company} Listed Today! 📈
 
-${company}
+🎉 Congratulations to all the allotted investors!
 
-Issue Price : ₹${issue}
-Listing Price : ₹${listing}
-Listing Gain : ${gain.toFixed(2)}%
-Profit / Lot : ₹${profit.toFixed(0)}
+📊 Listing Highlights:
+💰 Issue Price: ₹${issue}
+📈 Listing Price: ₹${listing}
+🔥 Listing Gain: ${gain.toFixed(2)}%
+💵 Gain Per Share: ₹${gainPerShare.toFixed(2)}
+🎯 Profit Per Lot: ₹${profit.toFixed(0)} (Lot Size: ${lot} Shares)
 
-Follow @be.ipowale for fastest Mainboard IPO updates.`;
+A positive listing and a rewarding day for investors! 🙌
 
-let ig=`🚨 ${company} ${type}
+📲 Follow @BE.IPOWale for:
+✅ Daily IPO Updates
+✅ Live GMP Updates
+✅ IPO Allotment Status
+✅ Listing Gain Updates
+✅ Upcoming Mainboard IPOs
 
-✅ Issue Price : ₹${issue}
-✅ Listing Price : ₹${listing}
-📈 Listing Gain : ${gain.toFixed(2)}%
-💰 Profit/Lot : ₹${profit.toFixed(0)}
+💡 Stay Informed, Stay Ahead!
 
-Follow @be.ipowale
+⚠️ Disclaimer: Investments in the securities market are subject to market risks. Read all related documents carefully before investing.`;
 
-#ipo #stockmarket #mainboard #doubletap #likesharecomment`;
+let ig = `🚀 ${company} Listed Today! 📈
+
+🎉 Congratulations to all the allotted investors!
+
+📊 Listing Highlights:
+💰 Issue Price: ₹${issue}
+📈 Listing Price: ₹${listing}
+🔥 Listing Gain: ${gain.toFixed(2)}%
+💵 Gain Per Share: ₹${gainPerShare.toFixed(2)}
+🎯 Profit Per Lot: ₹${profit.toFixed(0)} (Lot Size: ${lot} Shares)
+
+🙌 A rewarding listing for investors!
+
+📲 Follow @be.ipowale for:
+✅ Daily IPO Updates
+✅ Live GMP Updates
+✅ IPO Allotment Status
+✅ Listing Gain Updates
+✅ Upcoming Mainboard IPOs
+
+💡 Stay Informed, Stay Ahead!
+
+⚠️ Disclaimer: Investments in the securities market are subject to market risks. Read all related documents carefully before investing.
+
+#BEIPOWale #IPO #IPONews #IPOListing #ListingGain #MainboardIPO #GMP #StockMarketIndia #NSE #BSE #Investing #ShareMarket #IPOUpdates`;
 
 let pr=`Create a premium 1080x1080 Instagram post in luxury white fintech theme for BE.IPOWale.
 
