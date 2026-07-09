@@ -1,205 +1,126 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BE.IPOWale Instant News Generator</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BE.IPOWale News Generator Pro</title>
 <style>
+:root{--p:#0b57d0;--g:#16a34a;--bg:#eef3fb;--c:#fff;--t:#1f2937}
+body.dark{--bg:#111827;--c:#1f2937;--t:#f3f4f6}
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#222}
-.container{max-width:1100px;margin:30px auto;padding:20px}
-.card{background:#fff;border-radius:16px;padding:24px;box-shadow:0 8px 24px rgba(0,0,0,.08)}
-h1{margin:0 0 10px;color:#0b57d0}
-.small{font-size:13px;color:#666}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:15px;margin:20px 0}
-label{font-weight:bold;font-size:14px}
-input,select,textarea{
-width:100%;
-padding:10px;
-margin-top:6px;
-border:1px solid #ccc;
-border-radius:8px;
-font-size:14px;
-}
-textarea{height:200px;resize:vertical}
-button{
-padding:12px 18px;
-border:none;
-border-radius:8px;
-background:#0b57d0;
-color:#fff;
-font-weight:bold;
-cursor:pointer;
-margin-top:10px;
-}
-button:hover{background:#0847ab}
-.copy{background:#16a34a;margin-right:8px}
-.copy:hover{background:#12803a}
-.section{margin-top:30px}
-a.btn{
-display:inline-block;
-margin-top:20px;
-padding:12px 18px;
-background:#111827;
-color:#fff;
-text-decoration:none;
-border-radius:8px;
-font-weight:bold;
-}
+body{margin:0;background:var(--bg);font-family:Arial,sans-serif;color:var(--t)}
+.wrap{max-width:1200px;margin:auto;padding:20px}
+.card{background:var(--c);padding:22px;border-radius:16px;box-shadow:0 8px 20px rgba(0,0,0,.12)}
+h1{margin:0;color:var(--p)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px;margin:20px 0}
+input,select,textarea{width:100%;padding:10px;border:1px solid #ccc;border-radius:8px}
+textarea{height:220px}
+button{padding:10px 16px;border:0;border-radius:8px;background:var(--p);color:#fff;cursor:pointer;margin:4px}
+.copy{background:var(--g)}
+.stats{display:flex;gap:15px;flex-wrap:wrap;margin:15px 0}
+.badge{background:#e5eefc;padding:10px 15px;border-radius:10px;font-weight:bold}
+body.dark .card{background:#1f2937}
+body.dark .badge{background:#374151}
 </style>
 </head>
 <body>
-
-<div class="container">
+<div class="wrap">
 <div class="card">
-
-<h1>🚀 BE.IPOWale Instant News Generator</h1>
-<p class="small">Generate Telegram, Instagram Caption and ChatGPT Prompt in one click.</p>
+<h1>🚀 BE.IPOWale News Generator Pro</h1>
+<p>Telegram • Instagram • Twitter • AI Prompt</p>
 
 <div class="grid">
-
-<div>
-<label>News Type</label>
+<div><label>News Type</label>
 <select id="type">
-<option>Listing</option>
-<option>GMP Update</option>
-<option>Allotment</option>
-<option>Subscription</option>
-<option>DRHP</option>
-<option>SEBI Approval</option>
-</select>
+<option>Listing</option><option>GMP Update</option><option>Allotment</option>
+<option>Subscription</option><option>DRHP</option><option>SEBI Approval</option>
+</select></div>
+<div><label>Company</label><input id="company"></div>
+<div><label>Issue Price</label><input id="issue" type="number"></div>
+<div><label>Listing Price</label><input id="listing" type="number"></div>
+<div><label>GMP</label><input id="gmp" type="number"></div>
+<div><label>Lot Size</label><input id="lot" type="number"></div>
 </div>
 
-<div>
-<label>Company Name</label>
-<input id="company">
+<div class="stats">
+<div class="badge" id="gainBox">Gain: 0%</div>
+<div class="badge" id="shareBox">Share: ₹0</div>
+<div class="badge" id="profitBox">Lot: ₹0</div>
 </div>
 
-<div>
-<label>Issue Price (₹)</label>
-<input id="issue" type="number">
-</div>
+<button onclick="generate()">Generate</button>
+<button onclick="toggleMode()">🌙 Dark Mode</button>
 
-<div>
-<label>Listing Price (₹)</label>
-<input id="listing" type="number">
-</div>
+<h3>📢 Telegram</h3>
+<textarea id="telegram"></textarea><br>
+<button class="copy" onclick="copy('telegram')">Copy</button>
 
-<div>
-<label>GMP (₹)</label>
-<input id="gmp" type="number">
-</div>
+<h3>📸 Instagram</h3>
+<textarea id="instagram"></textarea><br>
+<button class="copy" onclick="copy('instagram')">Copy</button>
 
-<div>
-<label>Lot Size</label>
-<input id="lot" type="number">
-</div>
+<h3>🐦 Twitter/X</h3>
+<textarea id="twitter"></textarea><br>
+<button class="copy" onclick="copy('twitter')">Copy</button>
 
-</div>
-
-<button onclick="generate()">🚀 Generate</button>
-
-<div class="section">
-<h2>📢 Telegram</h2>
-<textarea id="telegram"></textarea>
-<button class="copy" onclick="copyText('telegram')">Copy Telegram</button>
-</div>
-
-<div class="section">
-<h2>📸 Instagram Caption</h2>
-<textarea id="instagram"></textarea>
-<button class="copy" onclick="copyText('instagram')">Copy Instagram</button>
-</div>
-
-<div class="section">
-<h2>🤖 ChatGPT Prompt</h2>
-<textarea id="prompt"></textarea>
-<button class="copy" onclick="copyText('prompt')">Copy Prompt</button>
-</div>
-
-<a href="gptprompt.html" class="btn">🤖 GPT Prompt Generator</a>
+<h3>🤖 AI Prompt</h3>
+<textarea id="prompt"></textarea><br>
+<button class="copy" onclick="copy('prompt')">Copy</button>
 
 </div>
 </div>
 
 <script>
+function money(n){return Number(n).toLocaleString("en-IN")}
+["issue","listing","lot"].forEach(id=>document.getElementById(id).addEventListener("input",calc));
+
+function calc(){
+let issue=+issueEl().value||0;
+let listing=+listingEl().value||0;
+let lot=+lotEl().value||0;
+let gain=issue?((listing-issue)/issue*100):0;
+let share=listing-issue;
+let profit=share*lot;
+gainBox.textContent="Gain: "+gain.toFixed(2)+"%";
+shareBox.textContent="Share: ₹"+money(share.toFixed(2));
+profitBox.textContent="Lot: ₹"+money(profit.toFixed(0));
+}
+function issueEl(){return document.getElementById("issue")}
+function listingEl(){return document.getElementById("listing")}
+function lotEl(){return document.getElementById("lot")}
+
 function generate(){
-
+calc();
 let type=document.getElementById("type").value;
-let company=document.getElementById("company").value||"Company";
-let issue=parseFloat(document.getElementById("issue").value)||0;
-let listing=parseFloat(document.getElementById("listing").value)||0;
-let gmp=parseFloat(document.getElementById("gmp").value)||0;
-let lot=parseFloat(document.getElementById("lot").value)||0;
+let c=document.getElementById("company").value||"Company";
+let issue=+issueEl().value||0;
+let listing=+listingEl().value||0;
+let gmp=+document.getElementById("gmp").value||0;
+let lot=+lotEl().value||0;
+let gain=issue?((listing-issue)/issue*100):0;
+let share=listing-issue;
+let profit=share*lot;
+let date=new Date().toLocaleDateString("en-IN",{day:"2-digit",month:"long",year:"numeric"});
+let status=gain>=0?"🟢 Positive Listing":"🔴 Negative Listing";
 
-let gain=issue?(((listing-issue)/issue)*100):0;
-let gainPerShare=listing-issue;
-let profit=gainPerShare*lot;
+let tg=`🚀 ${c} ${type}\n\n📅 ${date}\n\n${status}\n\n💰 Issue Price: ₹${money(issue)}\n📈 Listing Price: ₹${money(listing)}\n🔥 Listing Gain: ${gain.toFixed(2)}%\n💵 Gain/Share: ₹${money(share.toFixed(2))}\n🎯 Profit/Lot: ₹${money(profit.toFixed(0))} (${lot} Shares)\n\n📲 Follow @BE_IPOWale`;
 
-let tg=`🚀 ${company} Listed Today! 📈
+let ig=tg+"\n\n#BEIPOWale #IPO #IPOListing #MainboardIPO #StockMarketIndia";
+let tw=`${c} ${type}\nGain ${gain.toFixed(2)}% | Profit/Lot ₹${money(profit.toFixed(0))}\n#IPO #BEIPOWale`;
+let pr=`Create a premium 1080x1080 fintech Instagram post.\nBrand: BE.IPOWale\nCompany:${c}\nType:${type}\nIssue ₹${issue}\nListing ₹${listing}\nGMP ₹${gmp}\nGain ${gain.toFixed(2)}%\nGlassmorphism, luxury white theme, gold accents, blue glow, leave logo space.`;
 
-🎉 Congratulations to all the allotted investors!
-
-📊 Listing Highlights:
-💰 Issue Price: ₹${issue}
-📈 Listing Price: ₹${listing}
-🔥 Listing Gain: ${gain.toFixed(2)}%
-💵 Gain Per Share: ₹${gainPerShare.toFixed(2)}
-🎯 Profit Per Lot: ₹${profit.toFixed(0)} (Lot Size: ${lot} Shares)
-
-📲 Follow @BE.IPOWale for:
-✅ Daily IPO Updates
-✅ Live GMP Updates
-✅ IPO Allotment Status
-✅ Listing Gain Updates
-✅ Upcoming Mainboard IPOs
-
-💡 Stay Informed, Stay Ahead!
-
-⚠️ Disclaimer: Investments in the securities market are subject to market risks.`;
-
-let ig=`🚀 ${company} ${type}
-
-📊 Listing Highlights
-
-💰 Issue Price: ₹${issue}
-📈 Listing Price: ₹${listing}
-🔥 Listing Gain: ${gain.toFixed(2)}%
-💵 Gain Per Share: ₹${gainPerShare.toFixed(2)}
-🎯 Profit Per Lot: ₹${profit.toFixed(0)} (Lot Size: ${lot})
-
-📲 Follow @be.ipowale
-
-#BEIPOWale #IPO #IPONews #IPOListing #ListingGain #MainboardIPO #GMP #StockMarketIndia #NSE #BSE #Investing #ShareMarket #IPOUpdates`;
-
-let pr=`Create a premium 1080x1080 Instagram post.
-
-Brand: BE.IPOWale
-
-Company: ${company}
-News Type: ${type}
-Issue Price: ₹${issue}
-Listing Price: ₹${listing}
-GMP: ₹${gmp}
-Listing Gain: ${gain.toFixed(2)}%
-Gain Per Share: ₹${gainPerShare.toFixed(2)}
-Lot Size: ${lot}
-Profit Per Lot: ₹${profit.toFixed(0)}
-
-Luxury white fintech theme, premium gold accents, blue glow, glassmorphism cards, clean typography, leave top-left space for BE.IPOWale logo.`;
-
-document.getElementById("telegram").value=tg;
-document.getElementById("instagram").value=ig;
-document.getElementById("prompt").value=pr;
+telegram.value=tg;
+instagram.value=ig;
+twitter.value=tw;
+prompt.value=pr;
 }
 
-function copyText(id){
-const t=document.getElementById(id);
-t.select();
-t.setSelectionRange(0,99999);
-navigator.clipboard.writeText(t.value).then(()=>alert("Copied!"));
+function copy(id){
+navigator.clipboard.writeText(document.getElementById(id).value);
+alert("Copied!");
 }
+function toggleMode(){document.body.classList.toggle("dark")}
 </script>
-
 </body>
 </html>
