@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BE.IPOWale Instant News Generator</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#222}
+.container{max-width:1100px;margin:30px auto;padding:20px}
+.card{background:#fff;border-radius:16px;padding:24px;box-shadow:0 8px 24px rgba(0,0,0,.08)}
+h1{margin:0 0 10px;color:#0b57d0}
+.small{font-size:13px;color:#666}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:15px;margin:20px 0}
+label{font-weight:bold;font-size:14px}
+input,select,textarea{
+width:100%;
+padding:10px;
+margin-top:6px;
+border:1px solid #ccc;
+border-radius:8px;
+font-size:14px;
+}
+textarea{height:200px;resize:vertical}
+button{
+padding:12px 18px;
+border:none;
+border-radius:8px;
+background:#0b57d0;
+color:#fff;
+font-weight:bold;
+cursor:pointer;
+margin-top:10px;
+}
+button:hover{background:#0847ab}
+.copy{background:#16a34a;margin-right:8px}
+.copy:hover{background:#12803a}
+.section{margin-top:30px}
+a.btn{
+display:inline-block;
+margin-top:20px;
+padding:12px 18px;
+background:#111827;
+color:#fff;
+text-decoration:none;
+border-radius:8px;
+font-weight:bold;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+<div class="card">
+
+<h1>🚀 BE.IPOWale Instant News Generator</h1>
+<p class="small">Generate Telegram, Instagram Caption and ChatGPT Prompt in one click.</p>
+
+<div class="grid">
+
+<div>
+<label>News Type</label>
+<select id="type">
+<option>Listing</option>
+<option>GMP Update</option>
+<option>Allotment</option>
+<option>Subscription</option>
+<option>DRHP</option>
+<option>SEBI Approval</option>
+</select>
+</div>
+
+<div>
+<label>Company Name</label>
+<input id="company">
+</div>
+
+<div>
+<label>Issue Price (₹)</label>
+<input id="issue" type="number">
+</div>
+
+<div>
+<label>Listing Price (₹)</label>
+<input id="listing" type="number">
+</div>
+
+<div>
+<label>GMP (₹)</label>
+<input id="gmp" type="number">
+</div>
+
+<div>
+<label>Lot Size</label>
+<input id="lot" type="number">
+</div>
+
+</div>
+
+<button onclick="generate()">🚀 Generate</button>
+
+<div class="section">
+<h2>📢 Telegram</h2>
+<textarea id="telegram"></textarea>
+<button class="copy" onclick="copyText('telegram')">Copy Telegram</button>
+</div>
+
+<div class="section">
+<h2>📸 Instagram Caption</h2>
+<textarea id="instagram"></textarea>
+<button class="copy" onclick="copyText('instagram')">Copy Instagram</button>
+</div>
+
+<div class="section">
+<h2>🤖 ChatGPT Prompt</h2>
+<textarea id="prompt"></textarea>
+<button class="copy" onclick="copyText('prompt')">Copy Prompt</button>
+</div>
+
+<a href="gptprompt.html" class="btn">🤖 GPT Prompt Generator</a>
+
+</div>
+</div>
+
+<script>
+function generate(){
+
+let type=document.getElementById("type").value;
+let company=document.getElementById("company").value||"Company";
+let issue=parseFloat(document.getElementById("issue").value)||0;
+let listing=parseFloat(document.getElementById("listing").value)||0;
+let gmp=parseFloat(document.getElementById("gmp").value)||0;
+let lot=parseFloat(document.getElementById("lot").value)||0;
+
+let gain=issue?(((listing-issue)/issue)*100):0;
+let gainPerShare=listing-issue;
+let profit=gainPerShare*lot;
+
+let tg=`🚀 ${company} Listed Today! 📈
+
+🎉 Congratulations to all the allotted investors!
+
+📊 Listing Highlights:
+💰 Issue Price: ₹${issue}
+📈 Listing Price: ₹${listing}
+🔥 Listing Gain: ${gain.toFixed(2)}%
+💵 Gain Per Share: ₹${gainPerShare.toFixed(2)}
+🎯 Profit Per Lot: ₹${profit.toFixed(0)} (Lot Size: ${lot} Shares)
+
+📲 Follow @BE.IPOWale for:
+✅ Daily IPO Updates
+✅ Live GMP Updates
+✅ IPO Allotment Status
+✅ Listing Gain Updates
+✅ Upcoming Mainboard IPOs
+
+💡 Stay Informed, Stay Ahead!
+
+⚠️ Disclaimer: Investments in the securities market are subject to market risks.`;
+
+let ig=`🚀 ${company} ${type}
+
+📊 Listing Highlights
+
+💰 Issue Price: ₹${issue}
+📈 Listing Price: ₹${listing}
+🔥 Listing Gain: ${gain.toFixed(2)}%
+💵 Gain Per Share: ₹${gainPerShare.toFixed(2)}
+🎯 Profit Per Lot: ₹${profit.toFixed(0)} (Lot Size: ${lot})
+
+📲 Follow @be.ipowale
+
+#BEIPOWale #IPO #IPONews #IPOListing #ListingGain #MainboardIPO #GMP #StockMarketIndia #NSE #BSE #Investing #ShareMarket #IPOUpdates`;
+
+let pr=`Create a premium 1080x1080 Instagram post.
+
+Brand: BE.IPOWale
+
+Company: ${company}
+News Type: ${type}
+Issue Price: ₹${issue}
+Listing Price: ₹${listing}
+GMP: ₹${gmp}
+Listing Gain: ${gain.toFixed(2)}%
+Gain Per Share: ₹${gainPerShare.toFixed(2)}
+Lot Size: ${lot}
+Profit Per Lot: ₹${profit.toFixed(0)}
+
+Luxury white fintech theme, premium gold accents, blue glow, glassmorphism cards, clean typography, leave top-left space for BE.IPOWale logo.`;
+
+document.getElementById("telegram").value=tg;
+document.getElementById("instagram").value=ig;
+document.getElementById("prompt").value=pr;
+}
+
+function copyText(id){
+const t=document.getElementById(id);
+t.select();
+t.setSelectionRange(0,99999);
+navigator.clipboard.writeText(t.value).then(()=>alert("Copied!"));
+}
+</script>
+
+</body>
+</html>
