@@ -71,18 +71,25 @@ body.dark .badge{background:#374151}
 
 <script>
 function money(n){return Number(n).toLocaleString("en-IN")}
-["issue","listing","lot"].forEach(id=>document.getElementById(id).addEventListener("input",calc));
+["issue","listing","gmp","lot"].forEach(id =>
+    document.getElementById(id).addEventListener("input", calc)
+);
+ 
+ function calc(){
+    let issue = +issueEl().value || 0;
+    let gmp = +document.getElementById("gmp").value || 0;
+    let lot = +lotEl().value || 0;
 
-function calc(){
-let issue=+issueEl().value||0;
-let listing=+listingEl().value||0;
-let lot=+lotEl().value||0;
-let gain=issue?((listing-issue)/issue*100):0;
-let share=listing-issue;
-let profit=share*lot;
-gainBox.textContent="Gain: "+gain.toFixed(2)+"%";
-shareBox.textContent="Share: ₹"+money(share.toFixed(2));
-profitBox.textContent="Lot: ₹"+money(profit.toFixed(0));
+    let listing = issue + gmp;
+    listingEl().value = listing;
+
+    let gain = issue ? (gmp / issue * 100) : 0;
+    let share = gmp;
+    let profit = gmp * lot;
+
+    gainBox.textContent = "Gain: " + gain.toFixed(2) + "%";
+    shareBox.textContent = "Share: ₹" + money(share.toFixed(2));
+    profitBox.textContent = "Lot: ₹" + money(profit.toFixed(0));
 }
 function issueEl(){return document.getElementById("issue")}
 function listingEl(){return document.getElementById("listing")}
@@ -96,9 +103,9 @@ let issue=+issueEl().value||0;
 let listing=+listingEl().value||0;
 let gmp=+document.getElementById("gmp").value||0;
 let lot=+lotEl().value||0;
-let gain=issue?((listing-issue)/issue*100):0;
-let share=listing-issue;
-let profit=share*lot;
+let gain = issue ? (gmp / issue * 100) : 0;
+let share = gmp;
+let profit = gmp * lot;
 let date=new Date().toLocaleDateString("en-IN",{day:"2-digit",month:"long",year:"numeric"});
 let status=gain>=0?"🟢 Positive Listing":"🔴 Negative Listing";
 
